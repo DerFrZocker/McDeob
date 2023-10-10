@@ -39,7 +39,7 @@ public class Processor {
         }
     }
 
-    private final Version version;
+    private final VersionInfo version;
     private final boolean decompile;
     private final App app;
 
@@ -56,7 +56,7 @@ public class Processor {
 
     private Path dataFolderPath = Paths.get("deobf-work");
 
-    public Processor(Version version, boolean decompile, App app) {
+    public Processor(VersionInfo version, boolean decompile, App app) {
         this.version = version;
         this.app = app;
         if (Util.isRunningMacOS()) {

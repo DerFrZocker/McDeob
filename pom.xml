@@ -63,6 +63,11 @@
             <artifactId>slf4j-simple</artifactId>
             <version>2.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -111,31 +116,6 @@
                         <phase>package</phase>
                         <goals>
                             <goal>shade</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <!-- This is for packaging a macOS app -->
-            <plugin>
-                <groupId>de.perdian.maven.plugins</groupId>
-                <artifactId>macosappbundler-maven-plugin</artifactId>
-                <version>1.18.0</version>
-                <configuration>
-                    <dmg>
-                        <generate>true</generate>
-                        <appendVersion>false</appendVersion>
-                        <dmgFileName>${project.name}-${project.version}-macOS</dmgFileName>
-                    </dmg>
-                    <plist>
-                        <CFBundleIconFile>src/main/resources/images/1024.icns</CFBundleIconFile>
-                        <JVMMainClassName>com.shanebeestudios.mcdeop.McDeob</JVMMainClassName>
-                    </plist>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>bundle</goal>
                         </goals>
                     </execution>
                 </executions>

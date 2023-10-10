@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class McDeob {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, InterruptedException {
         if (args.length == 0) {
             try {
                 if (Util.isRunningMacOS()) {
@@ -80,16 +80,16 @@ public class McDeob {
         }
 
         Version.Type type = Version.Type.valueOf(typeString.toUpperCase());
-        Version version = Version.getByVersion(versionString, type);
+        VersionInfo version = Version.getByVersion(versionString, type);
         if (version == null) {
-            Logger.error("Invalid or unsupported version was specified, shutting down...");
-            System.exit(1);
+            version = new VersionResolver().resolve(type, versionString);
         }
 
         boolean decompile = options.has("decompile");
 
+        VersionInfo finalVersion = version;
         Thread processorThread = new Thread(() -> {
-            Processor processor = new Processor(version, decompile, null);
+            Processor processor = new Processor(finalVersion, decompile, null);
             processor.init();
         }, "Processor");
         processorThread.start();

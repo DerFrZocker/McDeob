@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("unused")
-public enum Version {
+public enum Version implements VersionInfo {
 
     // Latest
     SERVER_LATEST_RELEASE(Type.SERVER, "Latest_Release", null, null),
@@ -86,22 +86,27 @@ public enum Version {
         this.mappings = mappings + "/" + type.getName() + ".txt";
     }
 
+    @Override
     public String getVersion() {
         return version;
     }
 
+    @Override
     public String getJar() {
         return OBJECTS + jar;
     }
 
+    @Override
     public String getMappings() {
         return OBJECTS + mappings;
     }
 
+    @Override
     public Type getType() {
         return type;
     }
 
+    @Override
     public boolean isLatest() {
         return this == CLIENT_LATEST_RELEASE || this == SERVER_LATEST_RELEASE
                 || this == CLIENT_LATEST_SNAPSHOT || this == SERVER_LATEST_SNAPSHOT;
@@ -115,7 +120,7 @@ public enum Version {
                 '}';
     }
 
-    private static final String OBJECTS = "https://launcher.mojang.com/v1/objects/";
+    public static final String OBJECTS = "https://launcher.mojang.com/v1/objects/";
     private static final Map<String, Version> SERVER_VERSION_MAP = new HashMap<>();
     private static final Map<String, Version> CLIENT_VERSION_MAP = new HashMap<>();
     private static final List<Version> AVAILABLE_VERSIONS = new ArrayList<>();
